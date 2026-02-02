@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Marques | Ribeirão das Neves</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --raw-suede: #1a1a1a;
+            --roasted-amber: #d99330;
+            --deep-graphite: #0f0f0f;
+            --muted-gold: #b3864d;
+            --text-light: #f5f5f5;
+            --text-dim: #a0a0a0;
+            --grain-opacity: 0.04;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            background-color: var(--deep-graphite);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Tactile Grain Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: var(--grain-opacity);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3ExternalLinkIcon %3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Archivo+Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--roasted-amber);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Archivo Black';
+            font-size: 1.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+            border-bottom: 3px solid var(--roasted-amber);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            line-height: 0.95;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+
+        .hero h1 span {
+            color: var(--roasted-amber);
+            display: block;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            background: var(--roasted-amber);
+            color: #000;
+            padding: 1.25rem 2.5rem;
+            border-radius: 0;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(217, 147, 48, 0.2);
+        }
+
+        .amber-glow {
+            position: absolute;
+            top: 20%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(217, 147, 48, 0.15) 0%, rgba(15, 15, 15, 0) 70%);
+            z-index: 1;
+            filter: blur(40px);
+        }
+
+        /* Proof Section */
+        .proof {
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .rating-badge {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .rating-score {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--roasted-amber);
+        }
+
+        .testimonial-card {
+            background: var(--raw-suede);
+            padding: 2rem;
+            border-left: 2px solid var(--roasted-amber);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--text-dim);
+            font-size: 1rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 0;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .service-item {
+            padding: 3rem 2rem;
+            background: #151515;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .service-item:hover {
+            border-color: var(--muted-gold);
+            background: var(--raw-suede);
+        }
+
+        .service-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-item span {
+            display: block;
+            margin-top: 1rem;
+            opacity: 0.5;
+            font-size: 0.8rem;
+        }
+
+        /* Differentials */
+        .differentials {
+            padding-bottom: 8rem;
+        }
+
+        .diff-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+        }
+
+        .diff-card {
+            text-align: left;
+        }
+
+        .diff-card svg {
+            width: 32px;
+            height: 32px;
+            color: var(--roasted-amber);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Map / Location */
+        .location {
+            padding: 4rem 0;
+            background: #111;
+        }
+
+        .map-container {
+            height: 400px;
+            filter: grayscale(1) invert(0.9) contrast(1.2);
+            width: 100%;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .address-box {
+            background: var(--raw-suede);
+            padding: 3rem;
+            margin-top: -60px;
+            position: relative;
+            z-index: 5;
+            max-width: 500px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 10rem 0;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--deep-graphite), #000);
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            margin-bottom: 3rem;
+        }
+
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #444;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .address-box {
+                margin-top: 2rem;
+            }
+        }
+
+        /* Animations */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        [data-reveal].visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .footer-signature {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-signature:hover {
+            opacity: 1;
+        }
+
+        .github-icon-link {
+            color: var(--text-dim);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .github-icon-link:hover {
+            color: var(--roasted-amber);
+            transform: translateY(-2px) scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(217, 147, 48, 0.4));
+        }
+
+        .footer-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            color: var(--text-dim);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .footer-text .caim-link {
+            color: var(--text-light);
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .footer-text:hover .caim-link {
+            color: var(--roasted-amber);
+            text-shadow: 0 0 8px rgba(217, 147, 48, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">MARQUES</a>
+            <div class="mono">Ribeirão das Neves • MG</div>
+        </nav>
+    </div>
+
+    <section class="hero">
+        <div class="amber-glow"></div>
+        <div class="container">
+            <div class="hero-content" data-reveal>
+                <div class="mono" style="margin-bottom: 1rem;">Estilo • Tradição • Café</div>
+                <h1>Muito mais que <span>um corte.</span></h1>
+                <p>Cortes modernos, ambiente familiar e o atendimento que você merece em Ribeirão das Neves.</p>
+                <a href="https://wa.me/5531996092045" class="cta-button">
+                    AGENDAR PELO WHATSAPP
+                    <svg style="margin-left: 10px;" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="proof">
+        <div class="container">
+            <div class="rating-badge" data-reveal>
+                <div class="rating-score">4.9</div>
+                <div>
+                    <div style="color: var(--roasted-amber); font-size: 1.2rem;">★★★★★</div>
+                    <div class="mono" style="color: var(--text-dim);">60 avaliações no Google</div>
+                </div>
+            </div>
+            <div class="proof-grid">
+                <div class="testimonial-card" data-reveal>
+                    <p>"O melhor barbeiro e de quebra, um café sensacional! Estrutura impecável."</p>
+                </div>
+                <div class="testimonial-card" data-reveal style="transition-delay: 0.1s;">
+                    <p>"Ótimo atendimento, ambiente familiar. Me sinto em casa todas as vezes."</p>
+                </div>
+                <div class="testimonial-card" data-reveal style="transition-delay: 0.2s;">
+                    <p>"Corte de primeira, Wi-Fi rápido e TV. O tempo passa voando enquanto espero."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="section-header" data-reveal>
+                <div class="mono">Nossos Serviços</div>
+                <h2>Mestres da Navalha</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-item" data-reveal>
+                    <div class="mono">01</div>
+                    <h3>Corte Masculino</h3>
+                    <p>Do clássico ao degrade moderno, executado com precisão.</p>
+                    <span>Foco em visagismo</span>
+                </div>
+                <div class="service-item" data-reveal style="transition-delay: 0.1s;">
+                    <div class="mono">02</div>
+                    <h3>Barba</h3>
+                    <p>Toalha quente, terapia e alinhamento completo.</p>
+                    <span>Relaxamento total</span>
+                </div>
+                <div class="service-item" data-reveal style="transition-delay: 0.2s;">
+                    <div class="mono">03</div>
+                    <h3>Corte + Barba</h3>
+                    <p>O combo completo para renovar sua autoestima.</p>
+                    <span>Experiência premium</span>
+                </div>
+                <div class="service-item" data-reveal style="transition-delay: 0.3s;">
+                    <div class="mono">04</div>
+                    <h3>Acabamento</h3>
+                    <p>Ajustes finos na navalha para manter o visual impecável.</p>
+                    <span>Detalhe é tudo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="differentials">
+        <div class="container">
+            <div class="diff-list">
+                <div class="diff-card" data-reveal>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 3h12l-2 18H8L6 3zM12 3v18" />
+                    </svg>
+                    <div class="mono">Café Gourmet</div>
+                </div>
+                <div class="diff-card" data-reveal style="transition-delay: 0.1s;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" />
+                    </svg>
+                    <div class="mono">Wi-Fi & TV</div>
+                </div>
+                <div class="diff-card" data-reveal style="transition-delay: 0.2s;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <div class="mono">Bebidas & Snacks</div>
+                </div>
+                <div class="diff-card" data-reveal style="transition-delay: 0.3s;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    <div class="mono">Agendamento App</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="location">
+        <div class="container">
+            <div class="mono">Onde estamos</div>
+            <iframe class="map-container"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3755.333282270921!2d-44.068305!3d-19.740885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDQ0JzI3LjIiUyA0NMKwMDQnMDUuOSJX!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr"
+                style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <div class="address-box" data-reveal>
+                <h3>Barbearia Marques</h3>
+                <p style="color: var(--text-dim); margin: 1rem 0;">Rua 5, nº 75 – Areias<br>Ribeirão das Neves – MG</p>
+                <div class="mono" style="margin-top: 1rem;">Terça a Sábado: a partir das 09:30</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="container">
+            <h2 data-reveal>Seu visual merece<br>atenção de verdade.</h2>
+            <div data-reveal>
+                <a href="https://wa.me/5531996092045" class="cta-button">
+                    QUERO AGENDAR MEU HORÁRIO
+                </a>
+            </div>
+            <p class="mono" style="margin-top: 2rem; opacity: 0.5;">Fale conosco: (31) 99609-2045</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Barbearia Marques. Crafted for Excellence.</p>
+
+            <div class="footer-signature">
+                <a href="https://github.com/caimmnui" target="_blank" class="github-icon-link"
+                    aria-label="GitHub Profile">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.477 2 12C2 16.42 4.87 20.17 8.84 21.5C9.34 21.58 9.5 21.29 9.5 21.04C9.5 20.82 9.5 20.24 9.5 19.46C6.73 20.06 6.14 18.12 6.14 18.12C5.69 16.96 5.03 16.64 5.03 16.64C4.13 16.02 5.1 16.04 5.1 16.04C6.1 16.11 6.63 17.07 6.63 17.07C7.52 18.6 8.96 18.16 9.53 17.9C9.62 17.25 9.88 16.81 10.17 16.56C7.94 16.31 5.6 15.44 5.6 11.56C5.6 10.45 6 9.54 6.65 8.82C6.55 8.57 6.2 7.51 6.75 6.12C6.75 6.12 7.61 5.84 9.56 7.17C10.38 6.94 11.26 6.83 12.13 6.83C13 6.83 13.88 6.94 14.7 7.17C16.65 5.84 17.51 6.12 17.51 6.12C18.06 7.51 17.71 8.57 17.61 8.82C18.26 9.54 18.65 10.45 18.65 11.56C18.65 15.45 16.3 16.3 14.07 16.55C14.43 16.86 14.76 17.48 14.76 18.43C14.76 19.79 14.75 20.88 14.75 21.04C14.75 21.3 14.91 21.59 15.42 21.5C19.38 20.16 22.25 16.42 22.25 12C22.25 6.477 17.77 2 12 2Z" />
+                    </svg>
+                </a>
+
+                <a href="https://github.com/caimmnui" target="_blank" class="footer-text">
+                    MADE BY <span class="caim-link">CAIM</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+
+        // Smooth scroll (optional for anchor links)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
